@@ -1,0 +1,6 @@
+"0","a<-mean(launch$distress_ct)-b*mean(launch$temperature)"
+"0","a"
+"1","[1]"
+"1"," 4.301587"
+"1","
+"

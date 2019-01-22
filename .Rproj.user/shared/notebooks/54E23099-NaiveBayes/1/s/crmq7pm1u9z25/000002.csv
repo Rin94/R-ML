@@ -1,0 +1,7 @@
+"0","sms_corpus_clean<-tm_map(sms_corpus_clean,removeWords,stopwords())"
+"0","sms_corpus_clean<-tm_map(sms_corpus_clean,removePunctuation)"
+"0","as.character(sms_corpus_clean[[1]])"
+"1","[1]"
+"1"," ""go  jurong point crazy available   bugis n great world la e buffet cine  got amore wat"""
+"1","
+"

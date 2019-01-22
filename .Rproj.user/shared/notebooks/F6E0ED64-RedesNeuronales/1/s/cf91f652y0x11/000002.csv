@@ -1,0 +1,2 @@
+"0","concrete_train<-concrete_norm[1:773,]"
+"0","concrete_test<-concrete_norm[774:1030,]"

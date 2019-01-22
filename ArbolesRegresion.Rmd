@@ -1,0 +1,92 @@
+---
+title: "ArbolesRegresion"
+author: "Jared Salinas"
+date: "22/1/2019"
+output: html_document
+---
+
+Se hace un arbol de regresion para predir la calidad del vino
+
+## Leyendo el dataset
+```{r}
+wine<-read.csv("Data/winequality-white.csv",stringsAsFactors = TRUE)
+```
+
+## Obteniendo info del dataset
+```{r}
+str(wine)
+summary(wine)
+sum(is.na(wine))
+```
+correlacion
+```{r}
+## correlation
+library(psych)
+pairs.panels(wine[colnames(wine)])
+cor(wine)
+```
+
+Ver la distribución del vino
+```{r}
+hist(wine$quality)
+```
+
+## preparando los datos
+```{r}
+set.seed(2)
+train_sample<-sample(4898,3750)
+train_sample
+wine_train<-wine[train_sample,]
+wine_test<-wine[-train_sample,]
+
+str(wine_test)
+str(wine_train)
+```
+
+## creando el modelo 
+
+```{r}
+library(rpart)
+## m<-rpart(dv~iv, data=mydata)
+#p<-predict(m,test,type="vector")
+###vector->numeric values
+###class->classification classes
+###prob->predicted class probabilites
+winemodel<-rpart(quality~.,data=wine_train)
+winemodel
+
+###Visualizing decision trees
+library(rpart.plot)
+rpart.plot(winemodel,digits = 3)
+#extra parameters
+rpart.plot(winemodel,digits=4,fallen.leaves = TRUE,type=3,extra = 101)
+
+###Evaluating model performance
+p.rpart<-predict(winemodel,wine_test)
+```
+
+
+## Evaluando el modelo
+
+Se una el mean abosolute error para tener un margen de error en la predicción 
+
+```{r}
+summary(p.rpart)
+summary(wine_test$quality)
+
+cor(p.rpart,wine_test$quality)
+
+
+#MAE Mean Absolute Error
+
+MAE<-function(actual,predicted){
+  mean(abs(actual-predicted))
+}
+print("Error de predicción del modelo")
+MAE(p.rpart,wine_test$quality)
+print("Media de la distribución de la calidad del vino")
+mean(wine_train$quality)
+print("La relación entre el error y la media de la calidad del vino")
+MAE(5.87,wine_test$quality)
+```
+

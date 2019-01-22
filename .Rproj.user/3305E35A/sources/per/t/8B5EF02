@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548144602843.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1488169533",
+    "id" : "8B5EF02",
+    "lastKnownWriteTime" : 1548145481,
+    "last_content_update" : 1548145481704,
+    "path" : "~/Desktop/MachineLearningsProjects/Kmeans.Rmd",
+    "project_path" : "Kmeans.Rmd",
+    "properties" : {
+        "cursorPosition" : "82,11",
+        "scrollLine" : "79",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

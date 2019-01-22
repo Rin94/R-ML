@@ -1,0 +1,8 @@
+"0","sms_corpus<-VCorpus(VectorSource(sms_raw$text))"
+"0","print(sms_corpus)"
+"1","<<VCorpus>>
+"
+"1","Metadata:  corpus specific: 0, document level (indexed): 0
+"
+"1","Content:  documents: 5574
+"

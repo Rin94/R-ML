@@ -1,0 +1,2 @@
+"0","set.seed(2345)"
+"0","sns_clusters<-kmeans(interests_xyz,5)"

@@ -1,0 +1,3 @@
+"0","## correlation"
+"0","library(psych)"
+"0","pairs.panels(wine[colnames(wine)])"

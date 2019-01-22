@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548143826552.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4088796456",
+    "id" : "CB1273",
+    "lastKnownWriteTime" : 1548144516,
+    "last_content_update" : 1548144516403,
+    "path" : "~/Desktop/MachineLearningsProjects/MarketBasketAnalysis.Rmd",
+    "project_path" : "MarketBasketAnalysis.Rmd",
+    "properties" : {
+        "cursorPosition" : "98,83",
+        "scrollLine" : "93",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

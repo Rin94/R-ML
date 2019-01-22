@@ -1,0 +1,12 @@
+"0","prop.table(table(sms_test_labels))
+"
+"1","sms_test_labels
+"
+"1","      ham "
+"1","     spam "
+"1","
+"
+"1","0.8697842 "
+"1","0.1302158 "
+"1","
+"

@@ -1,0 +1,2 @@
+"0","letters_train<-letters[1:16000,]"
+"0","letters_test<-letters[16001:20000,]"

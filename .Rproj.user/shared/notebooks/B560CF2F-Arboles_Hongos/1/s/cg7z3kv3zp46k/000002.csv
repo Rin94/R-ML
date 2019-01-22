@@ -1,0 +1,243 @@
+"0","library(C50)"
+"0","modelo_hongos<-C5.0(hongos_train[-1],hongos_train$type,type=""class"")"
+"0","modelo_hongos"
+"1","
+Call:
+"
+"1","C5.0.default(x = hongos_train[-1], y = hongos_train$type, type = ""class"")"
+"1","
+
+"
+"1","Classification Tree
+"
+"1","Number of samples:"
+"1"," "
+"1","5686"
+"1"," "
+"1","
+Number of predictors:"
+"1"," "
+"1","21"
+"1"," "
+"1","
+
+"
+"1","Tree size:"
+"1"," "
+"1","8"
+"1"," "
+"1","
+
+"
+"1","Non-standard options: attempt to group attributes"
+"1","
+
+"
+"0","summary(modelo_hongos)"
+"1","
+Call:
+"
+"1","C5.0.default(x = hongos_train[-1], y = hongos_train$type, type = ""class"")"
+"1","
+
+"
+"1","
+C5.0 [Release 2.07 GPL Edition]  	Tue Jan 22 01:07:27 2019
+-------------------------------
+
+Class specified by attribute `outcome'
+
+Read 5686 cases (22 attributes) from undefined.data
+
+Decision tree:
+
+odor in {c,f,m,p,s,y}: p (2652)
+odor in {a,l,n}:
+:...spore_print_color = r: p (52)
+    spore_print_color in {b,h,k,n,o,u,w,y}:
+    :...stalk_color_below_ring in {b,c}: e (0)
+        stalk_color_below_ring = y: p (17)
+        stalk_color_below_ring in {e,g,o,p,w}:
+        :...cap_surface in {f,s,y}: e (2904/2)
+        :   cap_surface = g: p (2)
+        stalk_color_below_ring = n:
+        :...stalk_surface_above_ring in {f,s,y}: e (44)
+            stalk_surface_above_ring = k: p (15)
+
+
+Evaluation on training data (5686 cases):
+
+	    Decision Tree   
+	  ----------------  
+	  Size      Errors  
+
+	     7    2( 0.0%)   <<
+
+
+	   (a)   (b)    <-classified as
+	  ----  ----
+	  2946          (a): class e
+	     2  2738    (b): class p
+
+
+	Attribute usage:
+
+	100.00%	odor
+	 53.36%	spore_print_color
+	 52.44%	stalk_color_below_ring
+	 51.11%	cap_surface
+	  1.04%	stalk_surface_above_ring
+
+
+Time: 0.0 secs
+"
+"1","
+"
+"0","library(gmodels)"
+"0","hongos_pred<-predict(modelo_hongos,hongos_test)"
+"0","CrossTable(hongos_test$type,hongos_pred, prop.chisq = FALSE,"
+"0","           prop.c = FALSE, prop.r=FALSE, dnn=c(""actual default"", ""predict default""))"
+"1","
+"
+"1"," "
+"1","
+"
+"1","   Cell Contents
+"
+"1","|-------------------------|
+"
+"1","|                       N |
+"
+"1","|         N / Table Total |
+"
+"1","|-------------------------|
+"
+"1","
+"
+"1"," "
+"1","
+"
+"1","Total Observations in Table: "
+"1"," "
+"1","2438"
+"1"," "
+"1","
+"
+"1","
+"
+"1"," "
+"1","
+"
+"1","              "
+"1"," "
+"1","|"
+"1"," "
+"1","predict default"
+"1"," "
+"1","
+"
+"1","actual default"
+"1"," | "
+"1","        e"
+"1"," | "
+"1","        p"
+"1"," | "
+"1","Row Total"
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","             e"
+"1"," | "
+"1","     1262"
+"1"," | "
+"1","        0"
+"1"," | "
+"1","     1262"
+"1"," | "
+"1","
+"
+"1","              "
+"1"," | "
+"1","    0.518"
+"1"," | "
+"1","    0.000"
+"1"," | "
+"1","         "
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","             p"
+"1"," | "
+"1","        2"
+"1"," | "
+"1","     1174"
+"1"," | "
+"1","     1176"
+"1"," | "
+"1","
+"
+"1","              "
+"1"," | "
+"1","    0.001"
+"1"," | "
+"1","    0.482"
+"1"," | "
+"1","         "
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","  Column Total"
+"1"," | "
+"1","     1264"
+"1"," | "
+"1","     1174"
+"1"," | "
+"1","     2438"
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","
+"
+"1"," "
+"1","
+"

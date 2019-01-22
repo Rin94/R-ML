@@ -1,0 +1,1 @@
+"0","aggregate(data=sns,age~cluster_id,mean)"

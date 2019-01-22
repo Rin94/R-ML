@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548141512526.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1102208450",
+    "id" : "24357118",
+    "lastKnownWriteTime" : 1548142053,
+    "last_content_update" : 1548142053235,
+    "path" : "~/Desktop/MachineLearningsProjects/Regresion2.Rmd",
+    "project_path" : "Regresion2.Rmd",
+    "properties" : {
+        "cursorPosition" : "33,63",
+        "scrollLine" : "29",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

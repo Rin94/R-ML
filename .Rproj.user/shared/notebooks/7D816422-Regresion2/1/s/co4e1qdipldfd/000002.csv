@@ -1,0 +1,1 @@
+"0","insurance<-read.csv(""Data/insurance.csv"",stringsAsFactors = TRUE)"

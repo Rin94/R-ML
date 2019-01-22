@@ -1,0 +1,5 @@
+"0","library(neuralnet)"
+"0","set.seed(12354)"
+"0","#m<- neuralnet(target-predictors, data= mydata, hidden=1)"
+"0","concrete_model<-neuralnet(strength ~ cement +slag + ash + water + superplastic + coarseagg + fineagg +age, data=concrete_train)"
+"0","plot(concrete_model, rep=""best"")"

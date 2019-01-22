@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548142740885.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3129730647",
+    "id" : "9294F0FE",
+    "lastKnownWriteTime" : 1548143214,
+    "last_content_update" : 1548143215605,
+    "path" : "~/Desktop/MachineLearningsProjects/RedesNeuronales.Rmd",
+    "project_path" : "RedesNeuronales.Rmd",
+    "properties" : {
+        "cursorPosition" : "78,0",
+        "scrollLine" : "78",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

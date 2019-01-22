@@ -1,0 +1,13 @@
+"0","##ahora buscamos el porcentaje de los tipos de cancer
+round(prop.table(table(wbcd$diagnosis))*100,digits = 1)
+"
+"1","
+"
+"1","Benigno "
+"1","Maligno "
+"1","
+"
+"1","   62.7 "
+"1","   37.3 "
+"1","
+"

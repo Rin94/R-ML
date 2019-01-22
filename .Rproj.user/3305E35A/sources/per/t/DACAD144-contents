@@ -1,0 +1,62 @@
+---
+title: "Arboles_Hongos"
+author: "Jared Salinas"
+date: "22/1/2019"
+output: html_document
+---
+
+
+Identifiación de hongos venenosos y no venenosos, usando arboles
+
+## Leyendo los datos
+
+```{r}
+hongos<-read.csv("data/mushrooms.csv",stringsAsFactors = TRUE)
+```
+
+## Viendo la información del dataset
+
+```{r}
+str(hongos)## describe the types of data
+hongos$veil_type<-NULL#By assigning null a vector, R eliminates the feature from the mushrooms dataframe
+
+table(hongos$type)#Ver los tipos de hongos
+summary(hongos)
+tail(hongos)
+```
+
+## Preparando los datos
+
+```{r}
+set.seed(123)
+train_sample<-sample(8124,5686)
+str(train_sample)
+hongos_train<-hongos[train_sample,]
+hongos_test<-hongos[-train_sample,]
+
+# verify the dataset of train
+prop.table(table(hongos_train$type))
+
+#veryfi the dataset of test
+prop.table(table(hongos_test$type))
+```
+
+## Creando modelo y evaluando el modelo
+
+```{r}
+library(C50)
+
+modelo_hongos<-C5.0(hongos_train[-1],hongos_train$type,type="class")
+
+modelo_hongos
+
+summary(modelo_hongos)
+
+library(gmodels)
+
+hongos_pred<-predict(modelo_hongos,hongos_test)
+
+CrossTable(hongos_test$type,hongos_pred, prop.chisq = FALSE,
+           prop.c = FALSE, prop.r=FALSE, dnn=c("actual default", "predict default"))
+```
+

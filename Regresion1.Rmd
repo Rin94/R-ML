@@ -1,0 +1,84 @@
+---
+title: "Regresion Fundamentos"
+author: "Jared Salinas"
+date: "22/1/2019"
+output: html_document
+---
+
+## Leyendo los datos
+```{r}
+launch<-read.csv("Data/challenger.csv")
+```
+
+## Obteniendo información del dataset
+
+```{r}
+str(launch)
+
+```
+```{r}
+summary(launch)
+```
+```{r}
+lengths(launch)
+```
+## Sacar la regresion lineal
+
+sacamos ß
+
+```{r}
+b<-cov(launch$temperature, launch$distress_ct)/var(launch$temperature)
+b
+```
+
+sacamos å
+```{r}
+a<-mean(launch$distress_ct)-b*mean(launch$temperature)
+a
+
+```
+
+Verificamos la correlación
+
+```{r}
+c_orr<-cov(launch$temperature, launch$distress_ct)/(sd(launch$temperature)*sd(launch$distress_ct))
+c_orr
+cor(launch$temperature,launch$distress_ct)
+```
+
+## Generar funcion de regresion lineal para el dataset
+
+```{r}
+reg<-function(y,x){
+  x<-as.matrix(x)
+  
+  x<-cbind(Intercept=1,x)#agregamos columna a x y la llenamos con unos
+  b<-solve(t(x)%*%x)%*%t(x)%*%y
+  colnames(b)<-"estimate"
+  print(b)
+}
+str(launch)
+reg(y=launch$distress_ct, x=launch[3])
+
+#x<-claunch[-2]
+x1<-c(launch[1])
+x2<-c(launch[3])
+x3<-c(launch[4])
+x4<-c(launch[5])
+rocket_ln<-lm(launch$distress_ct~launch$temperature,data = launch)
+rocket_ln
+
+rocket_ln<-lm(launch$distress_ct~.,data = launch)
+rocket_ln
+
+summary(rocket_ln)
+```
+hacemos otras pruebas
+```{r}
+launch_1<-launch[-2]
+launch_1<-launch_1[-1]
+launch_1
+
+reg(launch$distress_ct,launch_1[1:3])
+```
+

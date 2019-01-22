@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548142131601.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1137138878",
+    "id" : "5BB602B",
+    "lastKnownWriteTime" : 1548142637,
+    "last_content_update" : 1548142637401,
+    "path" : "~/Desktop/MachineLearningsProjects/ArbolesRegresion.Rmd",
+    "project_path" : "ArbolesRegresion.Rmd",
+    "properties" : {
+        "cursorPosition" : "84,37",
+        "scrollLine" : "76",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

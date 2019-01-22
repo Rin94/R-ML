@@ -1,0 +1,80 @@
+---
+title: "Redes Neuronales"
+author: "Jared Salinas"
+date: "22/1/2019"
+output: html_document
+---
+
+Modelando la resistencia usando Redes Neuronales
+
+## Leyendo los datos
+```{r}
+concrete<-read.csv("Data/concrete.csv")
+```
+
+## Obteniendo info de los datos
+```{r}
+str(concrete)
+```
+
+## Procesando los datos
+
+Usamos la normalización, para que todos los datos se encuentren bajo un mismo rango.
+```{r}
+normalize<-function(x){
+  return ((x-min(x))/ (max(x)- min(x)))
+  }
+
+concrete_norm<-as.data.frame(lapply(concrete, normalize))
+#lappy nos evita usar ciclo, donde le decimos que todas las columnas, le aplica la funci??n normalize
+
+#Comprobamos si estan normalizados
+print("datos normalizados")
+summary(concrete_norm $ strength)
+#Comprobamos con los valores normales
+print("datos sin normalizar")
+summary(concrete $ strength)
+```
+## Preparando los datos
+
+```{r}
+concrete_train<-concrete_norm[1:773,]
+concrete_test<-concrete_norm[774:1030,]
+```
+
+## Haciendo el modelo de redes neuronales
+```{r}
+library(neuralnet)
+set.seed(12354)
+
+#m<- neuralnet(target-predictors, data= mydata, hidden=1)
+concrete_model<-neuralnet(strength ~ cement +slag + ash + water + superplastic + coarseagg + fineagg +age, data=concrete_train)
+
+plot(concrete_model, rep="best")
+
+#Evaluar el desempenio del modelo
+#Pasarle nuestro modelo, con muestros datos de prueba, la parte es la comlumna, no se pasa la columna 9
+model_result<-compute(concrete_model, concrete_test[1:8])
+
+#vamos a guardar los resultados de nuestra prediccion
+predicted_strength<-model_result$net.result
+```
+
+## Evaluamos nuestro modelo
+Con la correlacion de la fuerza 
+```{r}
+cor(predicted_strength,concrete_test$strength)[,1]
+```
+
+## Mejorano el modelo, aplicando mas capas ocultas
+
+```{r}
+concrete_model2<-neuralnet(strength ~ cement +slag + ash + water + superplastic + coarseagg + fineagg +age, data=concrete_train,hidden=5)
+plot(concrete_model2, rep="best")
+
+model_result2<-compute(concrete_model2, concrete_test[1:8])
+predicted_strength2<-model_result2$net.result
+cor(predicted_strength2,concrete_test$strength)
+```
+
+

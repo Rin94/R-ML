@@ -1,0 +1,8 @@
+"0","#Market Basket Analysis- tecnica recomendada para citas, dating sites, finding dangeous among medications"
+"0","#9832 TRANSACTIONES (30 TRANSACTION PER HOUR), SE REMOVI?? EL VALOR DE MARCA."
+"0","#M??s granularidad,m??s datos"
+"0","#cada transacci??n cada liea"
+"0","#Matriz esparcida la mayoria de las transacciones tiene 0"
+"0","library(""arules"")"
+"0","groceries <- read.transactions(""Data/groceries.csv"",sep="","")#entienda que es una base de datos transaccional, separacion por comas"
+"0","#densidad cuantos unos hay"

@@ -1,0 +1,346 @@
+"0","library(C50)"
+"0","credit_model<-C5.0(credit_train[-17],credit_train$default,type=""class"")"
+"0","credit_model ##gives info of the decision tree"
+"1","
+Call:
+"
+"1","C5.0.default(x = credit_train[-17], y = credit_train$default, type = ""class"")"
+"1","
+
+"
+"1","Classification Tree
+"
+"1","Number of samples:"
+"1"," "
+"1","900"
+"1"," "
+"1","
+Number of predictors:"
+"1"," "
+"1","20"
+"1"," "
+"1","
+
+"
+"1","Tree size:"
+"1"," "
+"1","54"
+"1"," "
+"1","
+
+"
+"1","Non-standard options: attempt to group attributes"
+"1","
+
+"
+"0","summary(credit_model)"
+"1","
+Call:
+"
+"1","C5.0.default(x = credit_train[-17], y = credit_train$default, type = ""class"")"
+"1","
+
+"
+"1","
+C5.0 [Release 2.07 GPL Edition]  	Tue Jan 22 00:58:58 2019
+-------------------------------
+
+Class specified by attribute `outcome'
+
+Read 900 cases (21 attributes) from undefined.data
+
+Decision tree:
+
+checking_balance in {> 200 DM,unknown}: No (412/50)
+checking_balance in {< 0 DM,1 - 200 DM}:
+:...other_debtors = guarantor:
+    :...months_loan_duration > 36: Si (4/1)
+    :   months_loan_duration <= 36:
+    :   :...installment_plan in {none,stores}: No (24)
+    :       installment_plan = bank:
+    :       :...purpose = car (new): Si (3)
+    :           purpose in {business,car (used),domestic appliances,education,
+    :                       furniture,others,radio/tv,repairs,
+    :                       retraining}: No (7/1)
+    other_debtors in {co-applicant,none}:
+    :...credit_history = critical: No (102/30)
+        credit_history = fully repaid: Si (27/6)
+        credit_history = fully repaid this bank:
+        :...other_debtors = co-applicant: No (2)
+        :   other_debtors = none: Si (26/8)
+        credit_history in {delayed,repaid}:
+        :...savings_balance in {> 1000 DM,501 - 1000 DM}: No (19/3)
+            savings_balance = 101 - 500 DM:
+            :...other_debtors = co-applicant: Si (3)
+            :   other_debtors = none:
+            :   :...personal_status in {divorced male,
+            :       :                   married male}: Si (6/1)
+            :       personal_status = female:
+            :       :...installment_rate <= 3: No (4/1)
+            :       :   installment_rate > 3: Si (4)
+            :       personal_status = single male:
+            :       :...age <= 41: No (15/2)
+            :           age > 41: Si (2)
+            savings_balance = unknown:
+            :...credit_history = delayed: No (8)
+            :   credit_history = repaid:
+            :   :...foreign_worker = no: No (2)
+            :       foreign_worker = yes:
+            :       :...checking_balance = < 0 DM:
+            :           :...telephone = none: Si (11/2)
+            :           :   telephone = yes:
+            :           :   :...amount <= 5045: No (5/1)
+            :           :       amount > 5045: Si (2)
+            :           checking_balance = 1 - 200 DM:
+            :           :...residence_history > 3: No (9)
+            :               residence_history <= 3: [S1]
+            savings_balance = < 100 DM:
+            :...months_loan_duration > 39:
+                :...residence_history <= 1: No (2)
+                :   residence_history > 1: Si (19/1)
+                months_loan_duration <= 39:
+                :...purpose in {car (new),retraining}: Si (47/16)
+                    purpose in {domestic appliances,others}: No (3)
+                    purpose = car (used):
+                    :...amount <= 8086: No (9/1)
+                    :   amount > 8086: Si (5)
+                    purpose = education:
+                    :...checking_balance = < 0 DM: Si (5)
+                    :   checking_balance = 1 - 200 DM: No (2)
+                    purpose = repairs:
+                    :...residence_history <= 3: Si (4/1)
+                    :   residence_history > 3: No (3)
+                    purpose = business:
+                    :...credit_history = delayed: Si (2)
+                    :   credit_history = repaid:
+                    :   :...age <= 34: No (5)
+                    :       age > 34: Si (2)
+                    purpose = radio/tv:
+                    :...employment_length in {0 - 1 yrs,
+                    :   :                     unemployed}: Si (14/5)
+                    :   employment_length = 4 - 7 yrs: No (3)
+                    :   employment_length = > 7 yrs:
+                    :   :...amount <= 932: Si (2)
+                    :   :   amount > 932: No (7)
+                    :   employment_length = 1 - 4 yrs:
+                    :   :...months_loan_duration <= 15: No (6)
+                    :       months_loan_duration > 15:
+                    :       :...amount <= 3275: Si (7)
+                    :           amount > 3275: No (2)
+                    purpose = furniture:
+                    :...residence_history <= 1: No (8/1)
+                        residence_history > 1:
+                        :...installment_plan in {bank,stores}: No (3/1)
+                            installment_plan = none:
+                            :...telephone = yes: Si (7/1)
+                                telephone = none:
+                                :...months_loan_duration > 27: Si (3)
+                                    months_loan_duration <= 27: [S2]
+
+SubTree [S1]
+
+property in {building society savings,unknown/none}: Si (4)
+property = other: No (6)
+property = real estate:
+:...job = skilled employee: Si (2)
+    job in {mangement self-employed,unemployed non-resident,
+            unskilled resident}: No (2)
+
+SubTree [S2]
+
+checking_balance = 1 - 200 DM: Si (5/2)
+checking_balance = < 0 DM:
+:...property in {building society savings,real estate,unknown/none}: No (8)
+    property = other:
+    :...installment_rate <= 1: No (2)
+        installment_rate > 1: Si (4)
+
+
+Evaluation on training data (900 cases):
+
+	    Decision Tree   
+	  ----------------  
+	  Size      Errors  
+
+	    54  135(15.0%)   <<
+
+
+	   (a)   (b)    <-classified as
+	  ----  ----
+	   589    44    (a): class No
+	    91   176    (b): class Si
+
+
+	Attribute usage:
+
+	100.00%	checking_balance
+	 54.22%	other_debtors
+	 50.00%	credit_history
+	 32.56%	savings_balance
+	 25.22%	months_loan_duration
+	 19.78%	purpose
+	 10.11%	residence_history
+	  7.33%	installment_plan
+	  5.22%	telephone
+	  4.78%	foreign_worker
+	  4.56%	employment_length
+	  4.33%	amount
+	  3.44%	personal_status
+	  3.11%	property
+	  2.67%	age
+	  1.56%	installment_rate
+	  0.44%	job
+
+
+Time: 0.0 secs
+"
+"1","
+"
+"0","library(gmodels)"
+"0","credit_pred<-predict(credit_model,credit_test)"
+"0","CrossTable(credit_test$default,credit_pred, prop.chisq = FALSE,"
+"0","           prop.c = FALSE, prop.r=FALSE, dnn=c(""actual default"", ""predict default""))"
+"1","
+"
+"1"," "
+"1","
+"
+"1","   Cell Contents
+"
+"1","|-------------------------|
+"
+"1","|                       N |
+"
+"1","|         N / Table Total |
+"
+"1","|-------------------------|
+"
+"1","
+"
+"1"," "
+"1","
+"
+"1","Total Observations in Table: "
+"1"," "
+"1","100"
+"1"," "
+"1","
+"
+"1","
+"
+"1"," "
+"1","
+"
+"1","              "
+"1"," "
+"1","|"
+"1"," "
+"1","predict default"
+"1"," "
+"1","
+"
+"1","actual default"
+"1"," | "
+"1","       No"
+"1"," | "
+"1","       Si"
+"1"," | "
+"1","Row Total"
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","            No"
+"1"," | "
+"1","       60"
+"1"," | "
+"1","        7"
+"1"," | "
+"1","       67"
+"1"," | "
+"1","
+"
+"1","              "
+"1"," | "
+"1","    0.600"
+"1"," | "
+"1","    0.070"
+"1"," | "
+"1","         "
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","            Si"
+"1"," | "
+"1","       19"
+"1"," | "
+"1","       14"
+"1"," | "
+"1","       33"
+"1"," | "
+"1","
+"
+"1","              "
+"1"," | "
+"1","    0.190"
+"1"," | "
+"1","    0.140"
+"1"," | "
+"1","         "
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","  Column Total"
+"1"," | "
+"1","       79"
+"1"," | "
+"1","       21"
+"1"," | "
+"1","      100"
+"1"," | "
+"1","
+"
+"1","---------------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","-----------"
+"1","|"
+"1","
+"
+"1","
+"
+"1"," "
+"1","
+"

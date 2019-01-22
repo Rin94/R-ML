@@ -1,0 +1,122 @@
+---
+title: "KMeans para encontrar grupos de datos"
+author: "Jared Salinas"
+date: "22/1/2019"
+output: html_document
+---
+
+## Encontrar numero de cluster usando KMEANS
+
+--Basado en las distancias entre los puntos de los datos.
+--Parecido a KNN
+--No se usa para clasificar o predecir, más bien ayuda a poder saber como clasficar los datos.
+--Es bueno saber algo de como se forman los grupos.
+
+
+
+## Leyendo los datos
+En este caso, se busca formar grupos de adolecentes
+```{r}
+sns<-read.csv("Data/snsdata.csv")
+```
+
+## Obteniendo info de los datos
+```{r}
+str(sns)
+```
+
+Ver si hay datos nulos
+```{r}
+table(sns$gender,useNA = "ifany")
+```
+Ver la información de edad
+```{r}
+summary(sns$age)#max age and min age are unreasonable for teenagers
+
+
+```
+
+Los valores minimos y maximos no corresponden a la de los adolecentes.
+
+
+## Procesando los datos.
+
+En orden de que los grupos queden bien, tenemos que arreglar la información incorrecta
+haciendo asunciones basado en la información del data set.
+Arreglar las edades, distribución de sexo y quitar valores nulos
+
+```{r}
+sns$female<-ifelse(sns$gender=="F" & !is.na(sns$gender),1,0)
+sns$nogender<-ifelse(is.na(sns$gender),1,0)
+
+table(sns$female)
+table(sns$nogender)
+
+###Data Preparation - Inputing missing values
+sns$age<-ifelse(sns$age>=13&sns$age<20,sns$age,NA)
+mean(sns$age, na.rm=TRUE)
+#calcula la media de la edad por los valores de año
+aggregate(data=sns,age~gradyear,mean,na.rm=TRUE)
+#ave() regresa un vector con el grupo de medias repetidas, asi que el resultado
+#es igual al vector original
+ave_age<-ave(sns$age, sns$gradyear,FUN=function(x) mean(x,na.rm=TRUE))
+ave_age
+sns$age<-ifelse(is.na(sns$age),ave_age,sns$age)
+summary(sns$age)
+```
+
+## Haciendo el modelo
+
+```{r}
+library(stats)
+interests<-sns[5:40]
+interests
+#normalize the interest-lapply returns matrix, as.data.frame convert to dataframe
+interests_xyz<-as.data.frame(lapply(interests,scale))
+interests_xyz
+set.seed(2345)
+sns_clusters<-kmeans(interests_xyz,5)
+```
+
+## Estereotipos apriori
+
+1. Cerebro.
+2. Atleta.
+3. Común, basico.
+4. Princesa.
+5. Criminal.
+
+## Evualuando el modelo
+tamaño de los cluster
+```{r}
+sns_clusters$size
+
+
+```
+
+Los centroides del cluster
+```{r}
+sns_clusters$centers
+
+
+```
+
+Viendo a cada uno de los adolecentes a que cluster pertenece
+```{r}
+sns_clusters$cluster
+
+```
+
+## Mejorando el modelo
+```{r}
+sns$cluster_id<-sns_clusters$cluster
+###improving model performance
+
+sns[1:5,c("cluster_id","gender","age","friends")]
+
+aggregate(data=sns,age~cluster_id,mean)
+aggregate(data=sns,female~cluster_id,mean)
+
+aggregate(data=sns,friends~cluster_id,mean)
+```
+Podemos ver estadisticas demograficas de cada cluster

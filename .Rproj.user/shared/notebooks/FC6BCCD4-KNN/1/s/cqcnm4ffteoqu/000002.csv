@@ -1,0 +1,2 @@
+"0","wbcd_train_labels<-wbcd[1:469,1]"
+"0","wbcd_test_labels<-wbcd[470:569,1]"

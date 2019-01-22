@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548106834540.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "701244131",
+    "id" : "70E0B25A",
+    "lastKnownWriteTime" : 1548117437,
+    "last_content_update" : 1548117437077,
+    "path" : "~/Desktop/MachineLearningsProjects/KNN.Rmd",
+    "project_path" : "KNN.Rmd",
+    "properties" : {
+        "cursorPosition" : "11,25",
+        "docOutlineVisible" : "0",
+        "last_setup_crc32" : "",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

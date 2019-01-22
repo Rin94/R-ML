@@ -1,0 +1,2 @@
+"0","concrete_model2<-neuralnet(strength ~ cement +slag + ash + water + superplastic + coarseagg + fineagg +age, data=concrete_train,hidden=5)"
+"0","plot(concrete_model2, rep=""best"")"

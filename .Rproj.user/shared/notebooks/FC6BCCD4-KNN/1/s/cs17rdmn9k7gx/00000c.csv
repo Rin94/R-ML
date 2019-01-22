@@ -1,0 +1,5 @@
+"0","wbcd_pred<-knn(train=wbcd_train,test=wbcd_test,cl=wbcd_train_labels,k=21)
+"
+"2","Error in knn(train = wbcd_train, test = wbcd_test, cl = wbcd_train_labels,  : 
+  no missing values are allowed
+"

@@ -1,0 +1,6 @@
+"0","sms_corpus_clean<-tm_map(sms_corpus_clean, stemDocument)"
+"0","as.character(sms_corpus_clean[[1]])"
+"1","[1]"
+"1"," ""go jurong point crazi avail bugi n great world la e buffet cine got amor wat"""
+"1","
+"

@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1548125896028.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1982504482",
+    "id" : "FA434F25",
+    "lastKnownWriteTime" : 1548139829,
+    "last_content_update" : 1548139829632,
+    "path" : "~/Desktop/MachineLearningsProjects/NaiveBayes.Rmd",
+    "project_path" : "NaiveBayes.Rmd",
+    "properties" : {
+        "cursorPosition" : "188,63",
+        "last_setup_crc32" : "3B1E4DAAbb338d19",
+        "scrollLine" : "184",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

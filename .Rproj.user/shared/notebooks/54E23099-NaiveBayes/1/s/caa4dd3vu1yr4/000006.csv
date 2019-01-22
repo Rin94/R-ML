@@ -1,0 +1,17 @@
+"0","table(sms_tes_pred2,sms_test_labels)
+"
+"1","             sms_test_labels
+"
+"1","sms_tes_pred2"
+"1","  ham"
+"1"," spam"
+"1","
+         ham "
+"1"," 1215"
+"1","   28"
+"1","
+         spam"
+"1","    7"
+"1","  155"
+"1","
+"

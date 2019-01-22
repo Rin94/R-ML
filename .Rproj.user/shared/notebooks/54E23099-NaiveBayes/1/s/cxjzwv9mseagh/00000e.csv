@@ -1,0 +1,5 @@
+"0","spam<-subset(sms_raw,type==""spam"")"
+"0","ham<-subset(sms_raw,type==""ham"")"
+"0","wordcloud(spam$text,max.words = 40,scale=c(3,0.5))"
+"2","transformation drops documents"
+"2","transformation drops documents"

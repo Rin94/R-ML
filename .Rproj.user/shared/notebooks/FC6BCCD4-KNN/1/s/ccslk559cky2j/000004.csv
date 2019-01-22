@@ -1,0 +1,3 @@
+"0","render(""input.Rmd"", ""all"")"
+"2","Error in render(""input.Rmd"", ""all"") : could not find function ""render""
+"

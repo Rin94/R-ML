@@ -1,0 +1,111 @@
+---
+title: "KNN"
+author: "Jared Salinas González"
+date: "21/1/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Leyendo la información
+
+Read the csv and describe the data
+
+```{r}
+wbcd<-read.csv("data/wisc_bc_data.csv",stringsAsFactors = FALSE)
+str(wbcd)
+```
+Quitamos la  primera linea el id, porque no nos va ayudar a la clasificación y verificamos que no esta presente.
+```{r cars}
+wbcd<-wbcd[-1]
+colnames(wbcd)
+```
+Ahora vamos a ver cuantos pacientes tienen cancer y cuales no.
+```{r}
+table(wbcd$diagnosis)
+```
+En total hay 357 registros con tumores benignos y 212 con tumores malignos.
+
+Para cuestion de clasificación, haremos factoes los datos de diagnosis.
+```{r}
+
+wbcd$diagnosis<-factor(wbcd$diagnosis,levels =c ("B","M"),labels=c("Benigno", "Maligno"))
+##ahora buscamos el porcentaje de los tipos de cancer
+round(prop.table(table(wbcd$diagnosis))*100,digits = 1)
+```
+
+Miramos estadisticas de una parte  del dataset.
+```{r}
+summary(wbcd[c("radius_mean","area_mean","smoothness_mean")])
+```
+Observamos que las medidas de cada uno de los datos tienen diferentes rangos, es por eso, que debemos normalizar los datos aplicando una función de normalización.
+
+```{r}
+normalize<-function(x){
+  return((x-min(x))/(max(x)-min(x)))
+}
+```
+Decimos que normaliza las columnas seleccionadas
+```{r}
+wbcd_normalizado<-as.data.frame(lapply(wbcd[2:31], normalize))
+##probamos la normalización
+summary(wbcd_normalizado$area_mean)
+```
+
+## Preparando los datos separando la parte de entrenamiento y prueba.
+```{r}
+wbcd_train<-wbcd_normalizado[1:469,]
+wbcd_test<-wbcd_normalizado[470:569,]
+```
+
+Etiquetamos los datos
+```{r}
+wbcd_train_labels<-wbcd[1:469,1]
+wbcd_test_labels<-wbcd[470:569,1]
+```
+
+## Hacemos el entrenamiento
+```{r}
+#instalamos dependencias
+#install.packages("gmodels")
+library(gmodels)
+#install.packages("class")
+library("class")
+```
+```{r}
+wbcd_pred<-knn(train=wbcd_train,test=wbcd_test,cl=wbcd_train_labels,k=21)
+```
+
+## Evaluar
+```{r}
+CrossTable(x=wbcd_test_labels,y=wbcd_pred,prop.chisq = FALSE)
+```
+
+## Mejorando el algoritmo, cambiando a una distribución Z
+
+```{r}
+wbcd_z <- as.data.frame(scale(wbcd[-1]))
+summary(wbcd_z$area_mean)
+
+
+wbcd_train <- wbcd_z[1:469, ]
+wbcd_test <- wbcd_z[470:569, ]
+wbcd_train_labels <- wbcd[1:469, 1]
+wbcd_test_labels <- wbcd[470:569, 1]
+
+wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test,
+                        cl = wbcd_train_labels, k = 21)
+CrossTable(x = wbcd_test_labels, y = wbcd_test_pred,
+                       prop.chisq = FALSE)
+
+```
+
+
+```{r}
+
+```
+
+
+

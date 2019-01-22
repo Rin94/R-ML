@@ -1,0 +1,22 @@
+"0","sms_dtm"
+"1","<<DocumentTermMatrix (documents: 5574, terms: 6592)>>
+"
+"1","Non-/sparse entries: 42608/36701200
+"
+"1","Sparsity           : 100%
+"
+"1","Maximal term length: 40
+"
+"1","Weighting          : term frequency (tf)
+"
+"0","sms_dtm2"
+"1","<<DocumentTermMatrix (documents: 5574, terms: 6995)>>
+"
+"1","Non-/sparse entries: 43713/38946417
+"
+"1","Sparsity           : 100%
+"
+"1","Maximal term length: 40
+"
+"1","Weighting          : term frequency (tf)
+"

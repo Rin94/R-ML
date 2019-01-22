@@ -1,0 +1,6 @@
+"0","sms_dtm2<-DocumentTermMatrix(sms_corpus,"
+"0","                             control = list(tolower=TRUE,"
+"0","                                            removeNumbers=TRUE,"
+"0","                                            stopwords=TRUE,"
+"0","                                            removePunctuation=TRUE,"
+"0","                                            stemming=TRUE))"

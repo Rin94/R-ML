@@ -1,0 +1,35 @@
+"0","# visualizar los datos del corpus"
+"0","inspect(sms_corpus[1:2])"
+"1","<<VCorpus>>
+"
+"1","Metadata:  corpus specific: 0, document level (indexed): 0
+"
+"1","Content:  documents: 2
+"
+"1","
+"
+"1","[[1]]
+"
+"1","<<PlainTextDocument>>
+"
+"1","Metadata:  7
+"
+"1","Content:  chars: 111
+"
+"1","
+"
+"1","[[2]]
+"
+"1","<<PlainTextDocument>>
+"
+"1","Metadata:  7
+"
+"1","Content:  chars: 29
+"
+"1","
+"
+"0","as.character(sms_corpus[[1]])"
+"1","[1]"
+"1"," ""Go until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat..."""
+"1","
+"

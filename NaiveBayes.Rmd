@@ -1,0 +1,224 @@
+---
+title: "Naive Bayes"
+author: "Jared Salinas"
+date: "21/1/2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Leyendo la información
+
+```{r}
+sms_raw<-read.csv("data/sms_spam.csv",stringsAsFactors = FALSE)
+```
+
+Vemos información del dataset
+```{r}
+
+str(sms_raw)
+
+```
+La información son  el texto, y una clasificación (spam o ham)
+
+## Vemos información estadistica del caso de estudio
+```{r}
+summary(sms_raw)
+```
+Número de spam y ham
+```{r}
+table(sms_raw$type)
+```
+Hay más información sobre ham que de spam
+
+## Procesamiento de los datos
+
+Como es un conjunto de texto, tenemos que hacer una limpieza de los datos, quitar información 
+irrelevante para el clasificador, tener en cuenta que es importante saber que los mensajes que contienen spam, te regalan algo, o te dan algo muy dificil de obtener. Es por eso que usan mucho la 
+palabra "free"
+```{r}
+#importamos librería necesaria
+library(tm)
+```
+```{r}
+sms_corpus<-VCorpus(VectorSource(sms_raw$text))
+
+print(sms_corpus)
+```
+Hacemos elementos de tipo documentos.
+
+visualizamos los datos de los documentos.
+```{r}
+# visualizar los datos del corpus
+inspect(sms_corpus[1:2])
+
+as.character(sms_corpus[[1]])
+
+```
+La función lappy nos deja poder más de dos documentos, ya que afecta al conjunto
+```{r}
+lapply(sms_corpus[1:2], as.character)
+```
+Primero tenemos que hacer que nuestras cadenas de texto esten todas en minusculas
+```{r}
+
+sms_corpus_clean<-tm_map(sms_corpus, content_transformer(tolower))
+
+as.character(sms_corpus[[1]])
+as.character(sms_corpus_clean[[1]])
+
+```
+Removemos Números de nuestros textos
+```{r}
+sms_corpus_clean<-tm_map(sms_corpus_clean,removeNumbers)
+```
+También información irrelevante, en nuestro caso, son los nexos, uniones.
+Para eso usamos la función stopwords y tambien puntuaciones con con removePunctuation
+```{r}
+sms_corpus_clean<-tm_map(sms_corpus_clean,removeWords,stopwords())
+sms_corpus_clean<-tm_map(sms_corpus_clean,removePunctuation)
+as.character(sms_corpus_clean[[1]])
+```
+```{r}
+library(SnowballC)
+```
+WordStem nos saca la radical de las palabras
+```{r}
+wordStem(c("learn", "learned", "learning","learns"))
+wordStem(c("videogamer","gamer","gaming","gamer"))
+```
+```{r}
+sms_corpus_clean<-tm_map(sms_corpus_clean, stemDocument)
+as.character(sms_corpus_clean[[1]])
+```
+Removemos espacios vacios
+```{r}
+sms_corpus_clean<-tm_map(sms_corpus_clean, stripWhitespace)
+
+#print(as.character(sms_corpus[1:3]))
+#as.character(sms_corpus[1:3])
+print(as.character(sms_corpus_clean[1:3]))
+as.character(sms_corpus_clean[1])
+```
+
+## Preparación de los datos
+
+```{r}
+sms_dtm<-DocumentTermMatrix(sms_corpus_clean)
+```
+Pudimos haber hecho todo lo anterior con la siguiente linea:
+```{r}
+sms_dtm2<-DocumentTermMatrix(sms_corpus,
+                             control = list(tolower=TRUE,
+                                            removeNumbers=TRUE,
+                                            stopwords=TRUE,
+                                            removePunctuation=TRUE,
+                                            stemming=TRUE))
+```
+
+```{r}
+sms_dtm
+
+sms_dtm2
+```
+```{r}
+sms_dtm_train<-sms_dtm[1:4169,]
+sms_dtm_test<-sms_dtm[4170:5559,]
+
+sms_train_labels<-sms_raw[1:4169,]$type
+sms_test_labels<-sms_raw[4170:5559,]$type
+
+prop.table(table(sms_train_labels))
+prop.table(table(sms_test_labels))
+```
+Hacemos los cortes de prueba y entrenamiento y vemos la distribución del ham y el spam
+
+## Visualizando la información
+Además hacemos una nube de palabras para identificar las palabras más sonadas en el documento.
+```{r}
+library(wordcloud)
+```
+```{r}
+wordcloud(sms_corpus_clean,min.freq = 50, random.order = FALSE)
+options(warnings=2) 
+```
+Vemos otras nubes de palabras unas del spam y otra del ham
+```{r}
+spam<-subset(sms_raw,type=="spam")
+ham<-subset(sms_raw,type=="ham")
+
+wordcloud(spam$text,max.words = 40,scale=c(3,0.5))
+wordcloud(ham$text,max.words = 40, scale=c(3,0.5))
+```
+
+Vamos hacer más limpio la prueba, haciendo que solo busque la que tenga más de 5 menciones
+```{r}
+findFreqTerms(sms_dtm_train,5)
+
+sms_freq_words<-findFreqTerms(sms_dtm_train,5)
+
+str(sms_freq_words)
+
+sms_dtm_freq_train<- sms_dtm_train[ , sms_freq_words]
+sms_dtm_freq_test <- sms_dtm_test[ , sms_freq_words]         
+
+
+##hacer una funcion que nos diga si es spam o no
+
+convert_counts <- function(x) {
+    x <- ifelse(x > 0, "Yes", "No")
+}
+
+
+sms_train <- apply(sms_dtm_freq_train, MARGIN = 2,
+                                       convert_counts)
+sms_test <- apply(sms_dtm_freq_test, MARGIN = 2,
+                                      convert_counts)
+
+str(sms_train)
+str(sms_test)
+```
+
+## Haciendo el modelo y evaluando
+
+```{r}
+install.packages("e1071",repos = "http://cran.us.r-project.org")
+library(e1071)
+```
+
+```{r}
+sms_classifier <- naiveBayes(sms_train, sms_train_labels)
+
+#making predictions
+sms_test_pred <- predict(sms_classifier, sms_test)
+
+head(sms_test_pred)
+```
+```{r}
+#install.packages("gmodels", repos = "http://cran.us.r-project.org")
+#library(gmodels)
+
+length(sms_test_pred)
+#CrossTable(sms_test_pred, sms_test_labels,
+ #   prop.chisq = FALSE, prop.t = FALSE,
+  #  dnn = c('predicted', 'actual'))
+
+table(sms_test_pred,sms_test_labels)
+```
+
+## Buscando mejorar usando el estimador laplace
+
+```{r}
+sms_classifier2<-naiveBayes(sms_train,sms_train_labels,laplace = 1)
+sms_tes_pred2<-predict(sms_classifier2,sms_test)
+
+#CrossTable(sms_tes_pred2,sms_test_labels,prop.chisq = FALSE, prop.t = FALSE,
+         #  dnn = c("predicted","actual"))
+
+table(sms_tes_pred2,sms_test_labels)
+```
+

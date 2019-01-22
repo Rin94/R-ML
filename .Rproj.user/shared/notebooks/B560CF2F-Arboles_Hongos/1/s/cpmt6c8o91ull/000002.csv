@@ -1,0 +1,1 @@
+"0","hongos<-read.csv(""data/mushrooms.csv"",stringsAsFactors = TRUE)"

@@ -1,0 +1,1 @@
+"0","write(groceryrules, file = ""groceryrules.csv"",sep="","", quote=TRUE, row.names=FALSE)"

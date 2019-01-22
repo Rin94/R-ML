@@ -1,0 +1,5 @@
+"0","#Evaluar el desempenio del modelo"
+"0","#Pasarle nuestro modelo, con muestros datos de prueba, la parte es la comlumna, no se pasa la columna 9"
+"0","model_result<-compute(concrete_model, concrete_test[1:8])"
+"0","#vamos a guardar los resultados de nuestra prediccion"
+"0","predicted_strength<-model_result$net.result"

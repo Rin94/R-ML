@@ -1,0 +1,3 @@
+"0","#normalize the interest-lapply returns matrix, as.data.frame convert to dataframe"
+"0","interests_xyz<-as.data.frame(lapply(interests,scale))"
+"0","interests_xyz"
